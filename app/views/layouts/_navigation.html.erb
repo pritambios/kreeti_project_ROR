@@ -1,0 +1,35 @@
+<div class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="#">ImsKreeti</a>
+    <div class="navbar-collapse collapse navbar-responsive-collapse">
+
+      <ul class="nav navbar-nav">
+        <li><%= link_to "Link1", "/path1"  %></li>
+        <li><%= link_to "Link2", "/path2"  %></li>
+      </ul>
+      <ul class="nav navbar-right col-md-4">
+        <li class="col-md-8 user-name">
+          <% if current_user %>
+          <i class="fa fa-user"></i>
+          <%= current_user.full_name.present? ? current_user.full_name : current_user.email %>
+          <%= link_to ('<i class="fa fa-edit"></i>').html_safe, edit_user_registration_path(current_user), id: "edit"%>
+        </li>
+
+        <li class="col-md-1">&nbsp;</li>
+        <li class="col-md-3 logout"><%= link_to('logout', destroy_user_session_path,
+                                      class: 'btn btn-xs btn-danger', title: 'Logout', method: :delete) %>
+        </li>
+        <% else %>
+        <li class="col-md-4 pull-right">
+          <%= link_to('Sign In', new_user_session_path, class: 'btn btn-primary', title: 'Sign In') %>
+        </li>
+        <% end %>
+       </ul>
+    </div>
+  </div>
+</div>

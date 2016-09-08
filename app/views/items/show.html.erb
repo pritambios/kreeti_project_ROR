@@ -1,0 +1,35 @@
+<%- model_class = Item -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+<%= image_tag @item.image.url(:medium) %>
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+  <dd><%= @item.name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
+  <dd><%= @item.description %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:model_number) %>:</strong></dt>
+  <dd><%= @item.model_number %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:quantity) %>:</strong></dt>
+  <dd><%= @item.quantity %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:unit_price) %>:</strong></dt>
+  <dd><%= @item.unit_price %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:total_value) %>:</strong></dt>
+  <dd><%= @item.total_value %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:image_content_type) %>:</strong></dt>
+  <dd><%= @item.image_content_type %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:image_file_size) %>:</strong></dt>
+  <dd><%= @item.image_file_size %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:image_updated_at) %>:</strong></dt>
+  <dd><%= @item.image_updated_at %></dd>
+</dl>
+
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              items_path, :class => 'btn btn-default'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_item_path(@item), :class => 'btn btn-default' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              item_path(@item),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
