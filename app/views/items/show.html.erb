@@ -9,7 +9,7 @@
   <dt><strong><%= model_class.human_attribute_name(:email) %>:</strong></dt>
   <dd><%= @item.user.email %></dd>
   <dt><strong><%= model_class.human_attribute_name(:category) %>:</strong></dt>
-  <dd><%= @item.category.name %></dd>
+  <dd><%= @item.category.name if @item.category %></dd>
   <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
   <dd><%= @item.description %></dd>
   <dt><strong><%= model_class.human_attribute_name(:model_number) %>:</strong></dt>

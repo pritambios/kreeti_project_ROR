@@ -1,0 +1,13 @@
+<h1 align="center"><%= "Brand: " + @brand.name %></h1>
+<div align="center">
+  <%# if logged_in? and current_user.admin %>
+    <div class="row">
+      <span class="badge"><%= link_to "Edit Brand Name", edit_brand_path(@brand) %></span>
+    </div>
+  <%# end %>
+  <%= will_paginate @brand_items %>
+</div>
+<%= render 'items/item', obj: @brand_items %>
+<div align="center">
+  <%= will_paginate @brand_items %>
+</div>

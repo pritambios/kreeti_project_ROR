@@ -1,0 +1,21 @@
+<h1 align="center">Listing All Brands</h1>
+<div align="center">
+  <% @brands.each do |brand| %>
+    <ul class="listing">
+      <div class="row">
+        <div class="well col-md-4 col-md-offset-4">
+          <a href="#" class="close" data-dismiss="alert">&#215;</a>
+          <li id="category-title">
+            <%= brand.name %>
+            <%= link_to ('<i class="fa fa-edit"></i>').html_safe, edit_brand_path(brand), id: "edit"%>
+          </li>
+          <li><small><%= pluralize(brand.items.count, "item") %></small></li>
+        </div>
+      </div>
+    </ul>
+  <% end %>
+<%= will_paginate renderer: BootstrapPagination::Rails %>
+</div>
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_brand_path,
+            :class => 'btn btn-primary col-md-4 col-md-offset-4' %>
