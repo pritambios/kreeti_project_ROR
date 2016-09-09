@@ -4,7 +4,7 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
-    @items = Item.all
+    @items = Item.paginate(page: params[:page], per_page: 5)
   end
 
   # GET /items/1
@@ -25,7 +25,7 @@ class ItemsController < ApplicationController
   # POST /items.json
   def create
     @item = Item.new(item_params)
-
+    @item.user = current_user
     respond_to do |format|
       if @item.save
         format.html { redirect_to @item, notice: 'Item was successfully created.' }
@@ -69,6 +69,6 @@ class ItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
-      params.require(:item).permit(:name, :description, :model_number, :quantity, :unit_price, :total_value, :image)
+      params.require(:item).permit(:name, :description, :model_number, :quantity, :unit_price, :total_value, :image, :category_id)
     end
 end

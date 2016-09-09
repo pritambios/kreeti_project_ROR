@@ -51,13 +51,13 @@
             <ul class="nav nav-list">
               <li class="nav-header">Sidebar</li>
               <li><%= link_to "Link1", "/path1"  %></li>
-              <li><%= link_to "Link2", "/path2"  %></li>
-              <li><%= link_to "Link3", "/path3"  %></li>
+              <li><%= link_to "All Items", items_path  %></li>
+              <li><%= link_to "All Categories", categories_path  %></li>
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
       </div><!--/row-->
-
+      <%= debug(params) if Rails.env.development? %>
       <footer>
         <p>&copy; Company 2016</p>
       </footer>

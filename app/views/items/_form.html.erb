@@ -64,7 +64,15 @@
     </div>
     <%=f.error_span(:image) %>
   </div>
-
+  <div class="form-group">
+    <div class="row">
+      <div class="col-sm-offset-2 col-sm-8">
+        <%= f.collection_radio_buttons :category_id, Category.all, :id, :name do |cb| %>
+        <% cb.label(class: "radio-inline input_radio") {cb.radio_button(class: "radio") + cb.text} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
   <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">
       <%= f.submit nil, :class => 'btn btn-primary' %>
