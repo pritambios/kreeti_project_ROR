@@ -1,3 +1,12 @@
+#category-title {
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+.listing {
+  list-style: none;
+  padding-left: 0;
+}
 .user-name {
   padding: 0 !important;
   padding-left: 5px;
@@ -15,9 +24,11 @@
 }
 #edit {
   display: inline;
+    color: #D2691E;
 }
 #edit:hover, #edit:focus {
-  color: inherit;
+
+  background: none;
 }
 .logout {
   padding-left: 0px;
