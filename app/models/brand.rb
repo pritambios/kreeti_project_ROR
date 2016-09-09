@@ -1,5 +1,5 @@
 class Brand < ActiveRecord::Base
-  has_many :items
+  has_many :items, dependent: :destroy
   validates :name, presence: true, length: { minimum: 3, maximum: 25}
   validates_uniqueness_of :name
 end

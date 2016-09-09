@@ -32,7 +32,7 @@
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
               items_path, :class => 'btn btn-default'  %>
-<% if current_user == @item.user %>
+<% if (current_user == @item.user) || current_user.admin? %>
 <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_item_path(@item), :class => 'btn btn-default' %>
 <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
