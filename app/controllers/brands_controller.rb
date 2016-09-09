@@ -4,7 +4,7 @@ class BrandsController < ApplicationController
   before_action :require_admin, except: [:index, :show]
 
   def index
-    @brands = Brand.paginate(page: params[:page], per_page: 5)
+    @brands = Brand.paginate(page: params[:page], per_page: 3)
   end
 
   def new
