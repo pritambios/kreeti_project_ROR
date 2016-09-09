@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
-
+  before_action :require_admin, except: [:index, :show]
+  before_action :require_same_user, only: [:edit, :update, :destroy]
   # GET /items
   # GET /items.json
   def index
@@ -70,5 +71,17 @@ class ItemsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
       params.require(:item).permit(:name, :description, :model_number, :quantity, :unit_price, :total_value, :image, :category_id, :brand_id)
+    end
+    def require_same_user
+      return if current_user?(@article.user) || current_user.admin?
+
+      flash[:danger] = 'You can only edit or delete your own articles.'
+      redirect_to articles_path
+    end
+    def require_admin
+      return if current_user.admin?
+
+      flash[:danger] = 'Only admins can perform that action.'
+      redirect_to brands_path
     end
 end

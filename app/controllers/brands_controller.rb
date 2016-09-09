@@ -1,5 +1,7 @@
 class BrandsController < ApplicationController
 
+  before_action :require_admin, except: [:index, :show]
+
   def index
     @brands = Brand.paginate(page: params[:page], per_page: 5)
   end
@@ -39,5 +41,11 @@ class BrandsController < ApplicationController
   private
   def brand_params
     params.require(:brand).permit(:name)
+  end
+  def require_admin
+    return if current_user.admin?
+
+    flash[:danger] = 'Only admins can perform that action.'
+    redirect_to brands_path
   end
 end

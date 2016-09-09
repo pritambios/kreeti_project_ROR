@@ -4,10 +4,14 @@
     <ul class="listing">
       <div class="row">
         <div class="well col-md-4 col-md-offset-4">
+          <% if current_user.admin? %>
           <a href="#" class="close" data-dismiss="alert">&#215;</a>
+          <% end %>
           <li id="category-title">
             <%= brand.name %>
+            <% if current_user.admin? %>
             <%= link_to ('<i class="fa fa-edit"></i>').html_safe, edit_brand_path(brand), id: "edit"%>
+            <% end %>
           </li>
           <li><small><%= pluralize(brand.items.count, "item") %></small></li>
         </div>

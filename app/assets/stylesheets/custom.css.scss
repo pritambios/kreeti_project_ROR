@@ -1,8 +1,17 @@
+#logo {
+float: left;
+font-size: 1.7em;
+color: #4CAF50;
+letter-spacing:-1px;
+font-weight: bold;
+}
 #category-title {
   font-weight: bold;
   font-size: 1.5em;
 }
-
+.red {
+  color: red;
+}
 .listing {
   list-style: none;
   padding-left: 0;
@@ -32,6 +41,7 @@
 }
 .logout {
   padding-left: 0px;
+  padding-right: 0px;
 }
 .nav.navbar-right {
   padding-bottom: 10px;
@@ -72,4 +82,24 @@
 }
 .left-padding {
   padding-left: 15px !important;
+}
+footer {
+	margin-top: 45px;
+	padding-top: 5px;
+	border-top: 1px solid #eaeaea;
+	color: #777;
+}
+footer a:hover {
+	color:#222;
+}
+footer small {
+	float: left;
+}
+footer ul {
+	float: right;
+	list-style: none;
+}
+footer ul li{
+	float: left;
+	margin-left: 15px;
 }
