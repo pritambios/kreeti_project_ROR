@@ -3,7 +3,7 @@
   <% @categories.each do |category| %>
     <ul class="listing">
       <div class="row">
-        <div class="well col-md-4 col-md-offset-4">
+        <div class="well col-sm-4 col-sm-offset-4">
           <% if current_user.admin? %>
           <li>
             <%= link_to ('<i class="fa fa-remove"></i>').html_safe, category, method: :delete,
@@ -27,5 +27,5 @@
 <% if current_user.admin? %>
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_category_path,
-            :class => 'btn btn-primary col-md-4 col-md-offset-4' %>
+            :class => 'btn btn-primary col-sm-4 col-sm-offset-4' %>
 <% end %>
