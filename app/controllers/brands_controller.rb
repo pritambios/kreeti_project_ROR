@@ -28,7 +28,7 @@ class BrandsController < ApplicationController
   def update
     if @brand.update(brand_params)
       flash[:success] = "Brand name was successfully updated"
-      redirect_to brand_path(@brand)
+      redirect_to brands_path
     else
       render 'edit'
     end
