@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:model_number) %></th>
       <th><%= model_class.human_attribute_name(:category) %></th>
       <th><%= model_class.human_attribute_name(:brand) %></th>
       <th><%= model_class.human_attribute_name(:email) %></th>
@@ -16,6 +17,7 @@
     <% @items.each do |item| %>
       <tr>
         <td><%= item.name %></td>
+        <td><%= item.model_number %></td>
         <td><%= item.category.name if item.category %></td>
         <td><%= item.brand.name if item.brand %></td>
         <td><%= item.user.email %></td>
