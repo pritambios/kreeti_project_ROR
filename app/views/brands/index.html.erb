@@ -11,7 +11,7 @@
         </li>
           <% end %>
           <li id="category-title">
-            <%= brand.name %>
+            <%= link_to "#{brand.name}", brand_path(brand) %>
             <% if current_user.admin? %>
             <%= link_to ('<i class="fa fa-edit"></i>').html_safe, edit_brand_path(brand), id: "edit"%>
             <% end %>

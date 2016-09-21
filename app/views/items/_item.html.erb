@@ -1,0 +1,32 @@
+
+<% obj.each do |item| %>
+  <div class="row">
+    <div class="col-xs-8 col-xs-offset-2">
+      <div class="well well-lg">
+        <div class="item-title">
+          <%= link_to item.name, item_path(item) %>
+        </div>
+        <div class="item-body">
+          <p>Model Number: <%= item.model_number %></p>
+          <p>Brand: <%= item.brand.name if item.brand %></p>
+          <p>Category: <%= item.category.name if item.category %></p>
+          <div class="item-meta-details">
+            <small>Created by: <%= item.user.full_name if item.user%>,
+                    <%= time_ago_in_words(item.created_at) %> ago,
+                    last updated: <%= time_ago_in_words(item.updated_at) %> ago</small>
+          </div>
+        </div>
+        <div class="item-actions">
+            <%= link_to "view", item_path(item), class: "btn btn-xs btn-default" %>
+            <% if (current_user == item.user) || current_user.admin? %>
+            <%= link_to "Edit", edit_item_path(item), class: "btn btn-xs btn-primary" %>
+            <%= link_to "Delete", item_path(item), method: :delete,
+                                          data: { confirm: "Are you sure you want to delete the item?"},
+                                          class: "btn btn-xs btn-danger" %>
+          <% end %>
+          </div>
+
+      </div>
+    </div>
+  </div>
+<% end %>
