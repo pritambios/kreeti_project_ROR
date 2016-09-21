@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160909121151) do
+ActiveRecord::Schema.define(version: 20160921064549) do
+
+  create_table "alloction_histories", force: :cascade do |t|
+    t.integer  "item_id_id"
+    t.integer  "user_id_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id_id"], name: "index_alloction_histories_on_item_id_id"
+    t.index ["user_id_id"], name: "index_alloction_histories_on_user_id_id"
+  end
 
   create_table "brands", force: :cascade do |t|
     t.string   "name"
