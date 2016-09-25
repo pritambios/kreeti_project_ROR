@@ -25,9 +25,12 @@ class ItemsController < ApplicationController
   # POST /items.json
   def create
     @item = Item.new(item_params)
+    @allocation = @item.allocation_histories.new
     @item.user = current_user
+    @allocation.user = current_user
+    @allocation.status = "allocated"
     respond_to do |format|
-      if @item.save
+      if @item.save and @allocation.save
         format.html { redirect_to @item, notice: 'Item was successfully created.' }
         format.json { render :show, status: :created, location: @item }
       else
@@ -60,7 +63,46 @@ class ItemsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
+  def history
+    @item = Item.find(params[:format])
+    @histories = @item.allocation_histories.order("updated_at DESC")
+  end
+  def reallocateuser
+    @user = User.all
+  end
+  def reallocate
+    @item = Item.find(params[:id])
+    if @item.update(params.require(:item).permit(:user_id))
+      @allocation = @item.allocation_histories.new
+      @allocation.item_id = params[:id]
+      @allocation.user_id = @item.user_id
+      @allocation.status = "reallocated"
+      @allocation.save
+      flash[:warning] = "item is successfully reallocated"
+      redirect_to history_path(@item)
+    end
+  end
+  def deallocate
+    @item = Item.find(params[:format])
+    @last_allocation = @item.allocation_histories.where(status: ["allocated","reallocated"]).order("updated_at DESC").first
+    @second_last_allocation = @item.allocation_histories.where(status: ["allocated","reallocated"]).order("updated_at DESC").second
+    if !@second_last_allocation.nil?
+      @last_allocation.status = "deallocated"
+      @item.user_id = @second_last_allocation.user_id
+      @allocation = @item.allocation_histories.new
+      @allocation.item_id = params[:format]
+      @allocation.user_id = @last_allocation.user_id
+      @allocation.status = "deallocated"
+      @last_allocation.save
+      @item.save
+      @allocation.save
+      flash[:warning] = "item is successfully deallocated"
+      redirect_to history_path(@item)
+    else
+      flash[:danger] = "Sorry!!, no other allocation history found for this item. If you want to allocate to other user please try rellocation."
+      redirect_to history_path(@item)
+    end
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_item

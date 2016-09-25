@@ -10,15 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160921064549) do
+ActiveRecord::Schema.define(version: 20160923132746) do
 
-  create_table "alloction_histories", force: :cascade do |t|
-    t.integer  "item_id_id"
-    t.integer  "user_id_id"
+  create_table "allocation_histories", force: :cascade do |t|
+    t.integer  "item_id"
+    t.integer  "user_id"
+    t.string   "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["item_id_id"], name: "index_alloction_histories_on_item_id_id"
-    t.index ["user_id_id"], name: "index_alloction_histories_on_user_id_id"
+    t.index ["item_id", "user_id"], name: "index_allocation_histories_on_item_id_and_user_id"
+    t.index ["item_id"], name: "index_allocation_histories_on_item_id"
+    t.index ["user_id"], name: "index_allocation_histories_on_user_id"
   end
 
   create_table "brands", force: :cascade do |t|
@@ -31,11 +33,6 @@ ActiveRecord::Schema.define(version: 20160921064549) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "item_categories", force: :cascade do |t|
-    t.integer "item_id"
-    t.integer "category_id"
   end
 
   create_table "items", force: :cascade do |t|

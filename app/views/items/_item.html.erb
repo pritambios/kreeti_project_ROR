@@ -17,7 +17,7 @@
           </div>
         </div>
         <div class="item-actions">
-            <%= link_to "view", item_path(item), class: "btn btn-xs btn-default" %>
+            <%= link_to "view history", history_path(item), class: "btn btn-xs btn-default" %>
             <% if (current_user == item.user) || current_user.admin? %>
             <%= link_to "Edit", edit_item_path(item), class: "btn btn-xs btn-primary" %>
             <%= link_to "Delete", item_path(item), method: :delete,
@@ -25,7 +25,6 @@
                                           class: "btn btn-xs btn-danger" %>
           <% end %>
           </div>
-
       </div>
     </div>
   </div>
