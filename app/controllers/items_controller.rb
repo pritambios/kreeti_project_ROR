@@ -65,7 +65,7 @@ class ItemsController < ApplicationController
   end
   def history
     @item = Item.find(params[:format])
-    @histories = @item.allocation_histories.order("updated_at DESC")
+    @histories = @item.allocation_histories.paginate(page: params[:page], per_page: 5).order("updated_at DESC")
   end
   def reallocateuser
     @user = User.all

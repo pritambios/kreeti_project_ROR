@@ -1,23 +1,31 @@
-<h1><%= @item.name %>(<%= @item.model_number %>) history</h1>
-<h4><mark>currently <%= @item.name %> is allocaed to <%= @item.user.full_name %></mark></h4>
-<% @histories.each do |history| %>
-<% if history.status != "deallocated" %>
-  <p>item is <%= history.status %> to <%= history.user.full_name %> at <%= history.created_at %>
-<% else %>
-  <p>item is <%= history.status %> from <%= history.user.full_name %> and at <%= history.created_at %>
-    <% end %>
-<% end %>
-<br>
-<% if current_user.admin? %>
-  <button class="btn btn-warning">reallocation </button>
-  <%= link_to "deallocation", deallocate_path(@item), class: "btn btn-xs btn-default" %>
-  <button class="btn btn-danger">deallocation </button>
-  <%= form_tag("/reallocate", method: "post") do %>
-    <%= label_tag(:q, "Choose User:") %>
-    <%= hidden_field_tag(:id, @item.id) %>
-    <%= collection_radio_buttons(:item, :user_id, User.all, :id, :full_name) do |cb| %>
-    <% cb.label(class: "radio-inline input_radio") {cb.radio_button(class: "radio") + cb.text} %>
-    <% end %>
-    <%= submit_tag("Reallocate") %>
+<h1 align="center"><%= @item.name %>(<%= @item.model_number %>) history</h1>
+<h4 align="center"><mark>currently <%= @item.name %> is allocaed to <%= @item.user.full_name %></mark></h4>
+<div class="well well-lg col-xs-8 col-xs-offset-2" >
+  <% @histories.each do |history| %>
+  <% if history.status != "deallocated" %>
+    <p><%= @item.name %> is <%= history.status %> to <%= history.user.full_name %> at <%= history.created_at %>
+  <% else %>
+    <p><%= @item.name %> is <%= history.status %> from <%= history.user.full_name %> and at <%= history.created_at %>
+      <% end %>
   <% end %>
-<% end %>
+  <div class="item-actions">
+    <% if current_user.admin? %>
+      <%= link_to "deallocation", deallocate_path(@item), class: "btn btn-xs btn-danger" %>
+      <%= form_tag("/reallocate", method: "post") do %>
+        <%= label_tag(:q, "Whom do you want to reallocate? :") %>
+        <%= hidden_field_tag(:id, @item.id) %>
+        <%= collection_select(:item, :user_id, User.all, :id, :full_name,include_blank: true)  do |cb| %>
+          <% cb.text %>
+        <% end %>
+        <%= submit_tag("Reallocate", class: "btn btn-xs btn-warning") %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+<div align="center">
+	<%= will_paginate @histories, renderer: BootstrapPagination::Rails %>
+</div>
+
+<div class="col-xs-5 col-xs-offset-4">
+  [ <%= link_to "Cancel request and return to items listing", items_path %> ]
+</div>

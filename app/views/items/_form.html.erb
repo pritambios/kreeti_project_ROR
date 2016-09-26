@@ -68,9 +68,9 @@
     <div class="row">
       <%= f.label :category, :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
-        <%= f.collection_radio_buttons :category_id, Category.all, :id, :name do |cb| %>
-        <% cb.label(class: "radio-inline input_radio") {cb.radio_button(class: "radio") + cb.text} %>
-        <% end %>
+          <%= f.collection_select :category_id, Category.all,:id, :name, include_blank: "Select Category" do |cb| %>
+            <% cb.text %>
+          <% end %>
       </div>
     </div>
   </div>
@@ -78,8 +78,8 @@
     <div class="row">
       <%= f.label :brand, :class => 'control-label col-lg-2' %>
       <div class="col-lg-10">
-        <%= f.collection_radio_buttons :brand_id, Brand.all, :id, :name do |cb| %>
-        <% cb.label(class: "radio-inline input_radio") {cb.radio_button(class: "radio") + cb.text} %>
+        <%= f.collection_select :brand_id, Brand.all, :id, :name, include_blank: "Select Brand" do |cb| %>
+          <% cb.text %>
         <% end %>
       </div>
     </div>

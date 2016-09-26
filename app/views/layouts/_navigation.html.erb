@@ -7,13 +7,12 @@
     </button>
     <%= link_to "ImsKreeti",root_path, class: "navbar-brand", id: "logo" %>
     <div class="navbar-collapse collapse navbar-responsive-collapse">
-
       <ul class="nav navbar-nav">
         <li><a href="https://github.com/ppkreeti/kreeti_project" target="_blank">Github</a></li>
+        <% if current_user %>
+          <li><%= link_to ("Create New Item " + '<i class="fa fa-plus"></i>').html_safe, new_item_path %></li>
+        <% end %>
       </ul>
-      <% if current_user %>
-        <%= link_to ('<i class="fa fa-plus"></i> '+"create item").html_safe, new_item_path %>
-      <% end %>
       <ul class="nav navbar-right col-md-4">
         <li class="col-md-8 user-name">
           <% if current_user %>
@@ -21,7 +20,6 @@
           <%= current_user.full_name.present? ? current_user.full_name : current_user.email %>
           <%= link_to ('<i class="fa fa-edit"></i>').html_safe, edit_user_registration_path(current_user), id: "edit"%>
         </li>
-
         <li class="col-md-1">&nbsp;</li>
         <li class="col-md-3 logout"><%= link_to('logout', destroy_user_session_path,
                                       class: 'btn btn-xs btn-danger', title: 'Logout', method: :delete) %>
