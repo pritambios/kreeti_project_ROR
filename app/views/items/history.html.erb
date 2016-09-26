@@ -1,5 +1,5 @@
 <h1 align="center"><%= @item.name %>(<%= @item.model_number %>) history</h1>
-<h4 align="center"><mark>currently <%= @item.name %> is allocaed to <%= @item.user.full_name %></mark></h4>
+<h4 align="center"><mark>currently <%= @item.name %> is allocated to <%= @item.user.full_name %></mark></h4>
 <div class="well well-lg col-xs-8 col-xs-offset-2" >
   <% @histories.each do |history| %>
   <% if history.status != "deallocated" %>
