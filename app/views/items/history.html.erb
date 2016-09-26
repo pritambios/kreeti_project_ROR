@@ -8,15 +8,16 @@
     <% end %>
 <% end %>
 <br>
-<button class="btn btn-warning">reallocation </button>
-<%= link_to "deallocation", deallocate_path(@item), class: "btn btn-xs btn-default" %>
-<button class="btn btn-danger">deallocation </button>
-<%= form_tag("/reallocate", method: "post") do %>
-  <%= label_tag(:q, "Choose User:") %>
-  <%= hidden_field_tag(:id, @item.id) %>
-  <%= collection_radio_buttons(:item, :user_id, User.all, :id, :full_name) do |cb| %>
-  <% cb.label(class: "radio-inline input_radio") {cb.radio_button(class: "radio") + cb.text} %>
+<% if current_user.admin? %>
+  <button class="btn btn-warning">reallocation </button>
+  <%= link_to "deallocation", deallocate_path(@item), class: "btn btn-xs btn-default" %>
+  <button class="btn btn-danger">deallocation </button>
+  <%= form_tag("/reallocate", method: "post") do %>
+    <%= label_tag(:q, "Choose User:") %>
+    <%= hidden_field_tag(:id, @item.id) %>
+    <%= collection_radio_buttons(:item, :user_id, User.all, :id, :full_name) do |cb| %>
+    <% cb.label(class: "radio-inline input_radio") {cb.radio_button(class: "radio") + cb.text} %>
+    <% end %>
+    <%= submit_tag("Reallocate") %>
   <% end %>
-  <%= submit_tag("Reallocate") %>
 <% end %>
-<br>

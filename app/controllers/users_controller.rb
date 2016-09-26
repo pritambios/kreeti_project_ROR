@@ -1,19 +1,23 @@
 class UsersController < ApplicationController
   before_action :require_same_user, only: [:destroy]
   before_action :require_admin, only: [:destroy]
+
   def index
     @users = User.paginate(page: params[:page], per_page: 5)
   end
+
   def show
     @user = User.find(params[:id])
     @user_items = @user.items.paginate(page: params[:page], per_page: 5)
   end
+
   def destroy
     @user = User.find(params[:id])
     @user.destroy
     flash[:danger] = "User and all articles created by user have been deleted"
     redirect_to users_path
   end
+
   private
 
   def require_same_user

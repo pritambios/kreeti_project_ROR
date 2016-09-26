@@ -11,9 +11,8 @@
           <p>Brand: <%= item.brand.name if item.brand %></p>
           <p>Category: <%= item.category.name if item.category %></p>
           <div class="item-meta-details">
-            <small>Created by: <%= item.user.full_name if item.user%>,
-                    <%= time_ago_in_words(item.created_at) %> ago,
-                    last updated: <%= time_ago_in_words(item.updated_at) %> ago</small>
+            <small>allocated to: <%= item.user.full_name if item.user%>,
+               <%= time_ago_in_words(item.updated_at) %> ago</small>
           </div>
         </div>
         <div class="item-actions">
