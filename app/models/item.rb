@@ -22,9 +22,9 @@ class Item < ApplicationRecord
   end
 
   def save_deallocation_history(user)
-    allocation = allocation_histories.new
-    allocation.user_id = user.id
-    allocation.status = "deallocated"
-    allocation.save
+    allocation_history = allocation_histories.build
+    allocation_history.user_id = user.id
+    allocation_history.status = "deallocated"
+    allocation_history.save
   end
 end
