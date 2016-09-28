@@ -5,7 +5,7 @@
   <% if history.status != "deallocated" %>
     <p><%= @item.name %> is <%= history.status %> to <%= history.user.full_name %> at <%= history.created_at %>
   <% else %>
-    <p><%= @item.name %> is <%= history.status %> from <%= history.user.full_name %> and at <%= history.created_at %>
+    <p><%= @item.name %> is <%= history.status %> from <%= history.user.full_name %> at <%= history.created_at %>
       <% end %>
   <% end %>
   <div class="item-actions">

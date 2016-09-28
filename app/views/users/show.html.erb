@@ -1,4 +1,11 @@
 <h1 align="center"><%= @user.full_name %>'s items</h1>
+<div class="well well-lg col-xs-8 col-xs-offset-2" >
+  <p><mark>user details</mark></p>
+  <p> <strong>full_name :</strong> <%= @user.full_name %></p>
+  <p> <strong>email :</strong> <%= @user.email %>
+  <p> <strong>phone number :</strong> <%= @user.phone %> </p>
+
+</div>
 <div class="center">
   <%= will_paginate @user_items %>
 </div>

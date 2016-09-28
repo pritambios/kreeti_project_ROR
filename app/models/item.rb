@@ -13,4 +13,18 @@ class Item < ApplicationRecord
   validates :quantity, presence: true
   validates :unit_price, presence: true
   validates :total_value, presence: true
+
+  def save_allocation_history(user)
+    allocation_history = allocation_histories.build
+    allocation_history.user_id = user.id
+    allocation_history.status = "reallocated"
+    allocation_history.save
+  end
+
+  def save_deallocation_history(user)
+    allocation = allocation_histories.new
+    allocation.user_id = user.id
+    allocation.status = "deallocated"
+    allocation.save
+  end
 end
