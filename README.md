@@ -18,7 +18,7 @@ Rails extension
 * If an item is reallotted to another person then system should also keep track of those allotments i.e system should keep track of the total allotment history.
 * It should be possible to deallocate an item.
 * There should be a functionality to see the details of the allotment history for each item.
-* It should be possible to see all the items allotted to a person
+* It should be possible to see all the items allotted to a person.
 
-react extension
-*There will be a single page where user will be able to see all the items in a tabular format containing the items basic info(name, price, description, category) and column containing a checkbox, User can allocate or deallocate by clicking that checkbox.
+React extension
+* There will be a single page where user will be able to see all the items in a tabular format containing the items basic info(name, price, description, category) and column containing a checkbox, User can allocate or deallocate by clicking that checkbox.
