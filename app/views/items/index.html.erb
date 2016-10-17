@@ -1,5 +1,8 @@
 <h1 align="center">Listing all items</h1>
-<%= render 'item', obj: @items %>
+<%#= render 'item', obj: @items %>
+<%= react_component 'Items', props={ users: @users, items: @items.as_json( :include=> { :category=> { only: [:name] },
+:user=> {only: [:admin]} })} %>
+<%#= react_component 'Users', { users: @users } %>
 <div align="center">
 	<%= will_paginate renderer: BootstrapPagination::Rails %>
 </div>
