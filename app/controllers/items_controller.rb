@@ -57,7 +57,7 @@ class ItemsController < ApplicationController
 
   def reallocate
     @item = Item.find(params[:id])
-
+    
     if @item.update(reallocate_user_params)
       @allocation = @item.save_allocation_history(@item.user)
       flash[:success] = "item is successfully reallocated"

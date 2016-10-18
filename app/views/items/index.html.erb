@@ -1,12 +1,15 @@
 <h1 align="center">Listing all items</h1>
-<%#= render 'item', obj: @items %>
-<%= react_component 'Items', props={ users: @users, items: @items.as_json( :include=> { :category=> { only: [:name] },
-:user=> {only: [:admin]} })} %>
+<% if current_user.admin? %>
+	<%= react_component 'Items', props={ users: @users, items: @items.as_json( :include=> { :category=> { only: [:name] },
+				:user=> {only: [:first_name, :last_name, :full_name, :admin]} })} %>
+<% else %>
+		<%= render 'item', obj: @items %>
+<% end %>
 <%#= react_component 'Users', { users: @users } %>
 <div align="center">
 	<%= will_paginate renderer: BootstrapPagination::Rails %>
 </div>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
+<%#= link_to t('.new', :default => t("helpers.links.new")),
             new_item_path,
             :class => 'btn btn-primary' %>
