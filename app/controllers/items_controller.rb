@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
   before_action :require_same_user, only: [:edit, :update, :destroy]
 
   def index
-    @items = Item.paginate(page: params[:page], per_page: 5)
+    @items = Item.paginate(page: params[:page], per_page: 10)
     @users = User.all
   end
 
@@ -52,12 +52,12 @@ class ItemsController < ApplicationController
 
   def history
     @item = Item.find(params[:format])
-    @histories = @item.allocation_histories.paginate(page: params[:page], per_page: 5).order("updated_at DESC")
+    @histories = @item.allocation_histories.paginate(page: params[:page], per_page: 10).order("updated_at DESC")
   end
 
   def reallocate
     @item = Item.find(params[:id])
-    
+
     if @item.update(reallocate_user_params)
       @allocation = @item.save_allocation_history(@item.user)
       flash[:success] = "item is successfully reallocated"

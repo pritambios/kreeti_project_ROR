@@ -1,81 +1,64 @@
 class Checkbox extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
+      users: this.props.users,
       check: this.props.checkedprops,
       item_id: this.props.itemIdProps,
-      users: this.props.users
+      visible: false
     }
   }
 
-  handleClick() {
-    var checkbox = document.getElementById("checkboxid");
-    console.log(checkbox.checked);
-    var id = document.getElementById("id_"+this.state.item_id).value;
+  handleClick(e) {
+    var checkbox = e.target;
+    var id = this.state.item_id;
     if(checkbox.checked) {
-      $('#myModal_'+this.state.item_id).modal();
+      this.setState({
+        visible: true
+      })
     } else {
-      $.ajax({
-        url: '/deallocate.' + id,
-        type: 'get',
-        success: function() {
-          console.log('deallocated');
-        }.bind(this)
-      });
+        this.deallocate(id)
     }
   }
 
-  reallocate() {
+  deallocate(id) {
     $.ajax({
-      type: 'post',
-      data: {
-        'id': document.getElementById("id_"+this.state.item_id).value,
-        'item': {
-          'user_id': document.getElementById("username").value
-        }
-      },
-      url: '/reallocate',
+      url: '/deallocate.' + id,
+      type: 'get',
       success: function() {
-        $('#myModal').modal('hide')
-        console.log('reallocated');
+        this.setState({
+          check: false
+        })
       }.bind(this)
     });
   }
 
+  modalClose() {
+    $('#myModal').modal('hide');
+    this.setState({
+      check: false,
+      visible: false
+    })
+  }
+
+  reallocateSuccess() {
+    $('#myModal').modal('hide');
+    this.setState({
+      check: true,
+      visible: false
+    })
+  }
+
   render() {
-    console.log(this.state.check);
     return(
       <div>
-        <input onChange={this.handleClick.bind(this)} type="checkbox" id="checkboxid" defaultChecked={this.state.check}/>
-
-        <div className="modal fade" id={"myModal_"+this.state.item_id} tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 className="modal-title" id="myModalLabel">Reallocate User</h4>
-              </div>
-              <div className="modal-body">
-                <h5>whom do you want to reallocate? </h5>
-                <input type="hidden" id={"id_"+this.state.item_id} value={this.state.item_id} />
-                <select id="username">
-                  {
-                    this.state.users.map(function(user) {
-                      return (
-                        <option key={user.id} value={user.id} > {user.first_name} {user.last_name}</option>
-                      )
-                    })
-                  }
-                </select>
-              </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" onClick={this.reallocate.bind(this)} className="btn btn-primary">Reallocate</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <input onChange={this.handleClick.bind(this)} type="checkbox" checked={this.state.check}/>
+        <span id="">({this.state.check ? "Allocated" : "No Allocation"})</span>
+        {
+          this.state.visible ? <Modal reallocateSuccess={ this.reallocateSuccess.bind(this) }
+                modalClose={this.modalClose.bind(this) } check={ this.state.check } users={ this.state.users }
+                item_id={this.state.item_id} /> : ''
+        }
       </div>
     )
   }
